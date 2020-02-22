@@ -11,7 +11,7 @@ defmodule RumblWeb.Plugs.Auth do
     end
 
     defp get_and_add_user_to_conn(conn, nil) do
-        conn
+        assign(conn, :current_user, nil)
     end
 
     defp get_and_add_user_to_conn(conn, user_id) do
