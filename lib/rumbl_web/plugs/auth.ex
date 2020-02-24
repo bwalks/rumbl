@@ -17,7 +17,10 @@ defmodule RumblWeb.Plugs.Auth do
     defp get_and_add_user_to_conn(conn, user_id) do
         user = user_id && Accounts.get_user(user_id)
         case user do
-            nil -> delete_session(conn, :user_id)
+            nil -> 
+                conn
+                |> delete_session(:user_id)
+                |> assign(:current_user, nil)
             _ -> assign(conn, :current_user, user)
         end
     end

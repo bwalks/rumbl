@@ -46,10 +46,8 @@ defmodule RumblWeb.UserController do
     end
 
     def delete(conn, %{"id" => id}) do
+        IO.puts("Deleting user #{id}")
         Accounts.delete_by_id(id)
-        if conn.current_user.id == id do
-            conn = Auth.logout(conn)
-        end
         conn
         |> put_flash(:info, "Deleted user!")
         |> redirect(to: Routes.user_path(conn, :index))
